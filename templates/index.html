@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduGenie – AI Learning Assistant</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <!-- ── Hero Header ───────────────────────────────────────────── -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Powered by Google Gemini 1.5 Pro &amp; LaMini-Flan-T5</div>
+      <h1 class="hero-title">Welcome to EduGenie 🧠✨</h1>
+      <p class="hero-subtitle">Your personal AI tutor for smarter, faster, deeper learning.</p>
+      <div class="hero-features">
+        <span class="feature-pill">❓ Q&amp;A</span>
+        <span class="feature-pill">💡 Explain</span>
+        <span class="feature-pill">📝 Summarize</span>
+        <span class="feature-pill">🎯 Quiz</span>
+        <span class="feature-pill">🗺️ Learning Path</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── Main Content ───────────────────────────────────────────── -->
+  <main class="container">
+
+    <!-- ── Section 1: Q&A ──────────────────────────────────────── -->
+    <section class="card" id="qa-section">
+      <div class="card-header">
+        <div class="card-icon">❓</div>
+        <div>
+          <h2 class="card-title">Ask EduGenie a Question</h2>
+          <p class="card-desc">Get instant AI-powered answers to any educational question.</p>
+        </div>
+      </div>
+      <form id="qaForm" class="input-row" onsubmit="return false;">
+        <input
+          type="text"
+          id="question"
+          class="input-field"
+          placeholder="e.g. Why is the sky blue?"
+          required
+          autocomplete="off"
+        />
+        <button type="button" class="btn btn-primary" onclick="askQuestion()">
+          <span class="btn-text">Get Answer</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+      <div id="qaResult" class="result-box hidden">
+        <div class="result-label">Answer:</div>
+        <div id="qaOutput" class="result-text"></div>
+      </div>
+    </section>
+
+    <!-- ── Section 2: Explanation ──────────────────────────────── -->
+    <section class="card" id="explain-section">
+      <div class="card-header">
+        <div class="card-icon">💡</div>
+        <div>
+          <h2 class="card-title">Need an Explanation?</h2>
+          <p class="card-desc">Get simple, clear explanations for any concept — powered by LaMini-Flan-T5.</p>
+        </div>
+      </div>
+      <form id="explainForm" class="input-row" onsubmit="return false;">
+        <input
+          type="text"
+          id="explainTopic"
+          class="input-field"
+          placeholder="e.g. Photosynthesis"
+          required
+          autocomplete="off"
+        />
+        <button type="button" class="btn btn-secondary" onclick="explainTopic()">
+          <span class="btn-text">Explain</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+      <div id="explanationResult" class="result-box hidden">
+        <div class="result-label">Explanation:</div>
+        <div id="explanationOutput" class="result-text"></div>
+      </div>
+    </section>
+
+    <!-- ── Section 3: Summarize ────────────────────────────────── -->
+    <section class="card" id="summarize-section">
+      <div class="card-header">
+        <div class="card-icon">📝</div>
+        <div>
+          <h2 class="card-title">Summarize a Paragraph</h2>
+          <p class="card-desc">Paste any long text and get a crisp, clear summary instantly.</p>
+        </div>
+      </div>
+      <form id="summaryForm" class="input-col" onsubmit="return false;">
+        <textarea
+          id="summaryText"
+          class="textarea-field"
+          placeholder="Paste long content to summarize..."
+          rows="4"
+          required
+        ></textarea>
+        <button type="button" class="btn btn-accent" onclick="summarizeText()">
+          <span class="btn-text">Summarize</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+      <div id="summaryResult" class="result-box hidden">
+        <div class="result-label">Summary:</div>
+        <div id="summaryOutput" class="result-text"></div>
+      </div>
+    </section>
+
+    <!-- ── Section 4: Quiz ─────────────────────────────────────── -->
+    <section class="card" id="quiz-section">
+      <div class="card-header">
+        <div class="card-icon">🎯</div>
+        <div>
+          <h2 class="card-title">Generate a Quiz</h2>
+          <p class="card-desc">Enter a topic or paste a passage to generate 3 MCQ questions.</p>
+        </div>
+      </div>
+      <form id="quizForm" class="input-row" onsubmit="return false;">
+        <input
+          type="text"
+          id="quizText"
+          class="input-field"
+          placeholder="e.g. Solar System"
+          required
+          autocomplete="off"
+        />
+        <button type="button" class="btn btn-warning" onclick="generateQuiz()">
+          <span class="btn-text">Generate Quiz</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+      <div id="quizResult" class="quiz-container hidden"></div>
+    </section>
+
+    <!-- ── Section 5: Learning Path ────────────────────────────── -->
+    <section class="card" id="learn-section">
+      <div class="card-header">
+        <div class="card-icon">🗺️</div>
+        <div>
+          <h2 class="card-title">Get Learning Recommendations</h2>
+          <p class="card-desc">Receive a structured, personalized learning path from beginner to advanced.</p>
+        </div>
+      </div>
+      <form id="learnForm" class="input-row" onsubmit="return false;">
+        <input
+          type="text"
+          id="learnTopic"
+          class="input-field"
+          placeholder="e.g. Linear Regression"
+          required
+          autocomplete="off"
+        />
+        <button type="button" class="btn btn-success" onclick="getRecommendations()">
+          <span class="btn-text">Get Recommendations</span>
+          <span class="btn-loader hidden">⏳</span>
+        </button>
+      </form>
+      <div id="learnResult" class="result-box hidden">
+        <div class="result-label" id="learnLabel">Learning Recommendations:</div>
+        <div id="learnOutput" class="result-text learn-text"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ── Footer ────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <p>🧠 EduGenie Learning Assistant &nbsp;|&nbsp; Built with FastAPI &amp; Google Gemini 1.5 Pro</p>
+    <p class="footer-sub">Empowering learners with the power of Generative AI</p>
+  </footer>
+
+  <!-- ── JavaScript ────────────────────────────────────────────── -->
+  <script>
+    // ── Utility: toggle loading state ──────────────────────────
+    function setLoading(btn, loading) {
+      const text = btn.querySelector(".btn-text");
+      const loader = btn.querySelector(".btn-loader");
+      btn.disabled = loading;
+      if (loading) {
+        text.classList.add("hidden");
+        loader.classList.remove("hidden");
+      } else {
+        text.classList.remove("hidden");
+        loader.classList.add("hidden");
+      }
+    }
+
+    // ── Utility: show result box ────────────────────────────────
+    function showResult(boxId, outputId, content) {
+      const box = document.getElementById(boxId);
+      const output = document.getElementById(outputId);
+      output.textContent = content;
+      box.classList.remove("hidden");
+      box.classList.add("fade-in");
+    }
+
+    // ── Utility: show error ─────────────────────────────────────
+    function showError(outputId, message) {
+      const el = document.getElementById(outputId);
+      if (el) el.textContent = "⚠️ " + message;
+    }
+
+    // ── 1. Q&A ─────────────────────────────────────────────────
+    async function askQuestion() {
+      const question = document.getElementById("question").value.trim();
+      const btn = document.querySelector("#qa-section .btn");
+      if (!question) return;
+
+      setLoading(btn, true);
+      try {
+        const res = await fetch(`/qa?question=${encodeURIComponent(question)}`);
+        const data = await res.json();
+        showResult("qaResult", "qaOutput", data.answer || data.error || "No answer returned.");
+      } catch (err) {
+        showResult("qaResult", "qaOutput", "❌ Network error. Please try again.");
+      } finally {
+        setLoading(btn, false);
+      }
+    }
+
+    // ── 2. Explanation ─────────────────────────────────────────
+    async function explainTopic() {
+      const topic = document.getElementById("explainTopic").value.trim();
+      const btn = document.querySelector("#explain-section .btn");
+      if (!topic) return;
+
+      setLoading(btn, true);
+      try {
+        const res = await fetch("/explain/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ topic })
+        });
+        const data = await res.json();
+        showResult("explanationResult", "explanationOutput", data.explanation || data.error || "No explanation returned.");
+      } catch (err) {
+        showResult("explanationResult", "explanationOutput", "❌ Network error. Please try again.");
+      } finally {
+        setLoading(btn, false);
+      }
+    }
+
+    // ── 3. Summarize ───────────────────────────────────────────
+    async function summarizeText() {
+      const text = document.getElementById("summaryText").value.trim();
+      const btn = document.querySelector("#summarize-section .btn");
+      if (!text) return;
+
+      setLoading(btn, true);
+      try {
+        const res = await fetch("/summarize/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+        const data = await res.json();
+        showResult("summaryResult", "summaryOutput", data.summary || data.error || "No summary returned.");
+      } catch (err) {
+        showResult("summaryResult", "summaryOutput", "❌ Network error. Please try again.");
+      } finally {
+        setLoading(btn, false);
+      }
+    }
+
+    // ── 4. Quiz Generation ─────────────────────────────────────
+    async function generateQuiz() {
+      const text = document.getElementById("quizText").value.trim();
+      const btn = document.querySelector("#quiz-section .btn");
+      const resultDiv = document.getElementById("quizResult");
+      if (!text) return;
+
+      setLoading(btn, true);
+      resultDiv.classList.add("hidden");
+      resultDiv.innerHTML = "";
+
+      try {
+        const res = await fetch("/quiz", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ text })
+        });
+        const data = await res.json();
+
+        if (data.quiz && Array.isArray(data.quiz)) {
+          renderQuiz(data.quiz, resultDiv);
+          resultDiv.classList.remove("hidden");
+          resultDiv.classList.add("fade-in");
+        } else {
+          resultDiv.innerHTML = `<p class="error-msg">⚠️ ${data.error || "Failed to generate quiz."}</p>`;
+          resultDiv.classList.remove("hidden");
+        }
+      } catch (err) {
+        resultDiv.innerHTML = `<p class="error-msg">❌ Network error. Please try again.</p>`;
+        resultDiv.classList.remove("hidden");
+      } finally {
+        setLoading(btn, false);
+      }
+    }
+
+    function renderQuiz(questions, container) {
+      let html = `<div class="quiz-header">Quiz:</div>`;
+      questions.forEach((q, idx) => {
+        if (q.error) {
+          html += `<p class="error-msg">⚠️ ${q.error}</p>`;
+          return;
+        }
+        html += `
+          <div class="quiz-question" id="q-${idx}">
+            <p class="question-text"><strong>Q${idx + 1}:</strong> ${q.question}</p>
+            <div class="options-list">
+              ${q.options.map((opt, oi) => `
+                <label class="option-label">
+                  <input type="radio" name="q${idx}" value="${escapeHtml(opt)}" />
+                  <span>${opt}</span>
+                </label>
+              `).join("")}
+            </div>
+            <button class="btn btn-check" onclick="checkAnswer(${idx}, '${escapeHtml(q.answer)}')">
+              Check Answer
+            </button>
+            <div class="answer-feedback" id="feedback-${idx}"></div>
+          </div>
+          <hr class="quiz-divider" />
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function checkAnswer(qIdx, correctAnswer) {
+      const selected = document.querySelector(`input[name="q${qIdx}"]:checked`);
+      const feedback = document.getElementById(`feedback-${qIdx}`);
+      if (!selected) {
+        feedback.innerHTML = `<span class="feedback-warn">⚠️ Please select an option first.</span>`;
+        return;
+      }
+      if (selected.value === correctAnswer) {
+        feedback.innerHTML = `<span class="feedback-correct">✅ Correct!</span>`;
+      } else {
+        feedback.innerHTML = `<span class="feedback-wrong">❌ Incorrect. Correct answer: <strong>${correctAnswer}</strong></span>`;
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/'/g, "\\'").replace(/"/g, "&quot;");
+    }
+
+    // ── 5. Learning Recommendations ────────────────────────────
+    async function getRecommendations() {
+      const topic = document.getElementById("learnTopic").value.trim();
+      const btn = document.querySelector("#learn-section .btn");
+      if (!topic) return;
+
+      setLoading(btn, true);
+      try {
+        const res = await fetch(`/learn/recommendations?topic=${encodeURIComponent(topic)}`);
+        const data = await res.json();
+        const label = document.getElementById("learnLabel");
+        label.textContent = `Learning Recommendations for "${data.topic}":`;
+        showResult("learnResult", "learnOutput", data.recommendation || data.error || "No recommendation returned.");
+      } catch (err) {
+        showResult("learnResult", "learnOutput", "❌ Network error. Please try again.");
+      } finally {
+        setLoading(btn, false);
+      }
+    }
+
+    // ── Allow Enter key to submit ───────────────────────────────
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        const active = document.activeElement;
+        if (active.id === "question") askQuestion();
+        else if (active.id === "explainTopic") explainTopic();
+        else if (active.id === "quizText") generateQuiz();
+        else if (active.id === "learnTopic") getRecommendations();
+      }
+    });
+  </script>
+</body>
+</html>

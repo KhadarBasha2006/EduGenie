@@ -1,0 +1,48 @@
+# ─────────────────────────────────────────────────────────────────
+# EduGenie – .gitignore
+# ─────────────────────────────────────────────────────────────────
+
+# ── Environment & Secrets ─────────────────────────────────────────
+.env
+*.env
+
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual Environments ──────────────────────────────────────────
+venv/
+env/
+.venv/
+.env/
+
+# ── HuggingFace Model Cache ───────────────────────────────────────
+# (models are large; don't commit them)
+~/.cache/huggingface/
+
+# ── IDE & Editor ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ── Logs ─────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Data (JSON storage) ───────────────────────────────────────────
+data/*.json
+
+# ── Testing ───────────────────────────────────────────────────────
+.pytest_cache/
+htmlcov/
+.coverage
