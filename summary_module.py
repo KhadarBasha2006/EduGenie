@@ -1,6 +1,6 @@
 """
 EduGenie - Summary Module
-Uses Google Gemini 1.5 Pro to summarize long educational text.
+Uses Google Gemini 2.5 Flash to summarize long educational text.
 """
 
 import google.generativeai as genai

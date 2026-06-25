@@ -1,6 +1,6 @@
 """
 EduGenie - Quiz Module
-Uses Google Gemini 1.5 Pro to generate multiple-choice questions (MCQs).
+Uses Google Gemini 2.5 Flash to generate multiple-choice questions (MCQs).
 Returns structured JSON with questions, options, and correct answers.
 """
 

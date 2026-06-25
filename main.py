@@ -49,7 +49,7 @@ async def read_root(request: Request):
 @app.get("/qa")
 async def answer_question(question: str = Query(..., description="Educational question to answer")):
     """
-    Answers an educational question using Google Gemini 1.5 Pro.
+    Answers an educational question using Google Gemini 2.5 Flash.
 
     Example: GET /qa?question=What is photosynthesis?
     """
@@ -82,7 +82,7 @@ async def explain_api(request: Request):
 @app.post("/summarize/")
 async def summarize_api(request: Request):
     """
-    Summarizes long educational text using Gemini 1.5 Pro.
+    Summarizes long educational text using Gemini 2.5 Flash.
 
     Body: {"text": "Long passage here..."}
     """
@@ -103,7 +103,7 @@ async def summarize_api(request: Request):
 @app.post("/quiz")
 async def quiz_api(request: Request):
     """
-    Generates 3 MCQ questions from a topic or passage using Gemini 1.5 Pro.
+    Generates 3 MCQ questions from a topic or passage using Gemini 2.5 Flash.
 
     Body: {"text": "Pythagoras theorem"}
     """

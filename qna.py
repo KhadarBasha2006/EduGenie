@@ -1,6 +1,6 @@
 """
 EduGenie - Q&A Module
-Uses Google Gemini 1.5 Pro to answer educational questions.
+Uses Google Gemini 2.5 Flash to answer educational questions.
 """
 
 import google.generativeai as genai

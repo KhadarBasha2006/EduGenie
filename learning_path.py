@@ -1,6 +1,6 @@
 """
 EduGenie - Learning Path Module
-Uses Google Gemini 1.5 Pro to generate personalized, structured learning paths.
+Uses Google Gemini 2.5 Flash to generate personalized, structured learning paths.
 Covers beginner → intermediate → advanced levels with resources.
 """
 
