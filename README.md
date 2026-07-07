@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)
-![HuggingFace](https://img.shields.io/badge/HuggingFace-LaMini--Flan--T5-783M-FFD21F?style=for-the-badge&logo=huggingface&logoColor=black)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-HuggingFace-FFD21F?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 **EduGenie** is a lightweight, intelligent educational assistant powered by **Google Gemini 2.5 Flash** and **LaMini-Flan-T5-783M**. It provides instant Q&A, concept explanations, AI-generated quizzes, text summarization, and personalized learning path recommendations — all through a clean, responsive web interface.
