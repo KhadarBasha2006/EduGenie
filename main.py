@@ -15,6 +15,8 @@ Run with:
 """
 
 from fastapi import FastAPI, Request, Query
+import asyncio
+
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -74,8 +76,9 @@ async def explain_api(request: Request):
             status_code=400
         )
 
-    explanation = explain_topic(topic)
+    explanation = await asyncio.to_thread(explain_topic, topic)
     return {"topic": topic, "explanation": explanation}
+
 
 
 # ── Summarization – POST API using Gemini ─────────────────────────────────
@@ -95,8 +98,9 @@ async def summarize_api(request: Request):
             status_code=400
         )
 
-    summary = summarize_text(text)
+    summary = await asyncio.to_thread(summarize_text, text)
     return {"summary": summary}
+
 
 
 # ── Quiz Generation – POST API using Gemini ───────────────────────────────
@@ -116,9 +120,10 @@ async def quiz_api(request: Request):
             status_code=400
         )
 
-    quiz = generate_quiz(text)
-    print("Generated quiz:", quiz)  # ✅ DEBUG: visible in terminal
+    quiz = await asyncio.to_thread(generate_quiz, text)
     return JSONResponse(content={"quiz": quiz})
+
+
 
 
 # ── Learning Recommendations – GET API using Gemini ───────────────────────

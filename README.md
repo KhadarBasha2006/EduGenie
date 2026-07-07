@@ -10,9 +10,8 @@
 
 **EduGenie** is a lightweight, intelligent educational assistant powered by **Google Gemini 2.5 Flash** and **LaMini-Flan-T5-783M**. It provides instant Q&A, concept explanations, AI-generated quizzes, text summarization, and personalized learning path recommendations — all through a clean, responsive web interface.
 
-Project URL: https://github.com/KhadarBasha2006/EduGenie
 
-Live Demo: `https://your-render-service.onrender.com` (replace with your actual deployed URL)
+Demo Video: `https://your-render-service.onrender.com` (replace with your actual deployed URL)
 
 [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Project Structure](#-project-structure) · [API Reference](#-api-reference) · [Deployment](#-deployment)
 
@@ -347,10 +346,37 @@ http://127.0.0.1:8000/redoc
 2. Go to [render.com](https://render.com) → **New** → **Web Service**
 3. Connect your GitHub repository
 4. Configure:
-   - **Build Command:** `pip install -r requirements.txt`
+   - **Python Version:** `3.13.x` (recommended)
+   - **Build Command:** `python -m pip install -r requirements.txt`
    - **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
 5. Add **Environment Variable:** `GEMINI_API_KEY = your_key_here`
 6. Click **Deploy** ✅
+
+### Optional: Automatic Deploys from GitHub → Render
+
+You can trigger Render deploys automatically from GitHub using a workflow that calls the Render API.
+
+1. In your GitHub repo, go to **Settings** → **Secrets and variables** → **Actions** and add two secrets:
+  - `RENDER_API_KEY` — your Render account API key (create at https://dashboard.render.com/account/api-keys)
+  - `RENDER_SERVICE_ID` — the Render Web Service ID (from your service URL or dashboard)
+
+2. Push to `main` and the workflow `.github/workflows/deploy-to-render.yml` will call the Render API to start a deploy.
+
+3. Monitor deploys in the Render dashboard or check the Actions tab in GitHub for the workflow run.
+
+
+> If you must use Python `3.14`, use this build command instead:
+>
+> ```bash
+> mkdir -p /tmp/cargo /tmp/rustup && \
+> export CARGO_HOME=/tmp/cargo && \
+> export RUSTUP_HOME=/tmp/rustup && \
+> curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
+> . /tmp/cargo/env && \
+> python -m pip install -r requirements.txt
+> ```
+>
+> This ensures Rust and Cargo are installed into writable temporary directories so `tokenizers` can build if a wheel is not available.
 
 ### Option B — Deploy on Railway
 
