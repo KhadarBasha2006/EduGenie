@@ -11,7 +11,7 @@
 **EduGenie** is a lightweight, intelligent educational assistant powered by **Google Gemini 2.5 Flash** and **LaMini-Flan-T5-783M**. It provides instant Q&A, concept explanations, AI-generated quizzes, text summarization, and personalized learning path recommendations — all through a clean, responsive web interface.
 
 
-Demo Video: `https://drive.google.com/drive/folders/1WcgzrLGywzkeVgJ8YXiANd5XaxnWnwdK`
+Demo Video: **https://drive.google.com/drive/folders/1WcgzrLGywzkeVgJ8YXiANd5XaxnWnwdK**
 
 [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Project Structure](#-project-structure) · [API Reference](#-api-reference) · [Deployment](#-deployment)
 
