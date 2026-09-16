@@ -4,9 +4,11 @@ Uses Google Gemini 2.5 Flash to generate multiple-choice questions (MCQs).
 Returns structured JSON with questions, options, and correct answers.
 """
 
-import re
 import json
+import re
+
 import google.generativeai as genai
+
 from config import GEMINI_API_KEY, GEMINI_MODEL_NAME
 
 # Configure Gemini

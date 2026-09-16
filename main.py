@@ -14,19 +14,19 @@ Run with:
   uvicorn main:app --reload
 """
 
-from fastapi import FastAPI, Request, Query
 import asyncio
 
+from fastapi import FastAPI, Query, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from config import APP_TITLE, APP_VERSION, APP_DESCRIPTION
-from qna import answer_question_with_gemini
+from config import APP_DESCRIPTION, APP_TITLE, APP_VERSION
 from explanation_module import explain_topic
-from summary_module import summarize_text
-from quiz_module import generate_quiz
 from learning_path import get_learning_recommendations
+from qna import answer_question_with_gemini
+from quiz_module import generate_quiz
+from summary_module import summarize_text
 
 # ── App Initialization ────────────────────────────────────────────────────
 app = FastAPI(
