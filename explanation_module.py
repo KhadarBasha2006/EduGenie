@@ -4,8 +4,7 @@ Uses LaMini-Flan-T5-783M to explain topics in simple, clear language.
 Model: MBZUAI/LaMini-Flan-T5-783M
 """
 
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-import torch
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 # ── Load the LaMini-Flan-T5 model (downloaded once, cached by HuggingFace) ──
 print("📚 Loading LaMini-Flan-T5 model for explanations...")

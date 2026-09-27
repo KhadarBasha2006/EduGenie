@@ -4,6 +4,7 @@ Uses Google Gemini 2.5 Flash to answer educational questions.
 """
 
 import google.generativeai as genai
+
 from config import GEMINI_API_KEY, GEMINI_MODEL_NAME
 
 # Configure Gemini
