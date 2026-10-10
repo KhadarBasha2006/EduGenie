@@ -4,19 +4,17 @@ FastAPI backend with endpoints for all AI-powered educational features.
 
 Endpoints:
   GET  /              → Renders the main HTML interface
-  GET  /qa            → Q&A using Google Gemini
-  POST /explain/      → Concept explanation using LaMini-Flan-T5
-  POST /summarize/    → Text summarization using Google Gemini
-  POST /quiz          → MCQ Quiz generation using Google Gemini
-  GET  /learn/recommendations → Learning path using Google Gemini
+  GET  /qa            → Q&A using Gemini 1.5 Pro
+  POST /explain/      → Concept explanation using Gemini 1.5 Pro
+  POST /summarize/    → Text summarization using Gemini 1.5 Pro
+  POST /quiz          → MCQ Quiz generation using Gemini 1.5 Pro
+  GET  /learn/recommendations → Learning path using Gemini 1.5 Pro
 
 Run with:
   uvicorn main:app --reload
 """
 
 from fastapi import FastAPI, Request, Query
-import asyncio
-
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -51,7 +49,7 @@ async def read_root(request: Request):
 @app.get("/qa")
 async def answer_question(question: str = Query(..., description="Educational question to answer")):
     """
-    Answers an educational question using Google Gemini 2.5 Flash.
+    Answers an educational question using Google Gemini 1.5 Pro.
 
     Example: GET /qa?question=What is photosynthesis?
     """
@@ -59,11 +57,11 @@ async def answer_question(question: str = Query(..., description="Educational qu
     return {"answer": answer}
 
 
-# ── Explanation – POST API using LaMini-Flan-T5 ───────────────────────────
+# ── Explanation – POST API using Gemini ───────────────────────────────────
 @app.post("/explain/")
 async def explain_api(request: Request):
     """
-    Explains a concept in simple language using LaMini-Flan-T5.
+    Explains a concept in simple language using Gemini 1.5 Pro.
 
     Body: {"topic": "Photosynthesis"}
     """
@@ -76,16 +74,15 @@ async def explain_api(request: Request):
             status_code=400
         )
 
-    explanation = await asyncio.to_thread(explain_topic, topic)
+    explanation = explain_topic(topic)
     return {"topic": topic, "explanation": explanation}
-
 
 
 # ── Summarization – POST API using Gemini ─────────────────────────────────
 @app.post("/summarize/")
 async def summarize_api(request: Request):
     """
-    Summarizes long educational text using Gemini 2.5 Flash.
+    Summarizes long educational text using Gemini 1.5 Pro.
 
     Body: {"text": "Long passage here..."}
     """
@@ -98,16 +95,15 @@ async def summarize_api(request: Request):
             status_code=400
         )
 
-    summary = await asyncio.to_thread(summarize_text, text)
+    summary = summarize_text(text)
     return {"summary": summary}
-
 
 
 # ── Quiz Generation – POST API using Gemini ───────────────────────────────
 @app.post("/quiz")
 async def quiz_api(request: Request):
     """
-    Generates 3 MCQ questions from a topic or passage using Gemini 2.5 Flash.
+    Generates 3 MCQ questions from a topic or passage using Gemini 1.5 Pro.
 
     Body: {"text": "Pythagoras theorem"}
     """
@@ -120,10 +116,9 @@ async def quiz_api(request: Request):
             status_code=400
         )
 
-    quiz = await asyncio.to_thread(generate_quiz, text)
+    quiz = generate_quiz(text)
+    print("Generated quiz:", quiz)  # ✅ DEBUG: visible in terminal
     return JSONResponse(content={"quiz": quiz})
-
-
 
 
 # ── Learning Recommendations – GET API using Gemini ───────────────────────

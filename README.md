@@ -3,15 +3,11 @@
 <div align="center">
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-4285F4?style=for-the-badge&logo=google&logoColor=white)
-[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97-HuggingFace-FFD21F?style=for-the-badge&logo=huggingface&logoColor=black)](https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Gemini](https://img.shields.io/badge/Google%20Gemini-1.5%20Pro-4285F4?style=for-the-badge&logo=google&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-**EduGenie** is a lightweight, intelligent educational assistant powered by **Google Gemini 2.5 Flash** and **LaMini-Flan-T5-783M**. It provides instant Q&A, concept explanations, AI-generated quizzes, text summarization, and personalized learning path recommendations — all through a clean, responsive web interface.
-
-
-Demo Video: **https://drive.google.com/drive/folders/1WcgzrLGywzkeVgJ8YXiANd5XaxnWnwdK**
+**EduGenie** is a lightweight, intelligent educational assistant powered by **Google Gemini 1.5 Pro**. It provides instant Q&A, concept explanations, AI-generated quizzes, text summarization, and personalized learning path recommendations — all through a clean, responsive web interface.
 
 [Features](#-features) · [Tech Stack](#-tech-stack) · [Quick Start](#-quick-start) · [Project Structure](#-project-structure) · [API Reference](#-api-reference) · [Deployment](#-deployment)
 
@@ -35,11 +31,11 @@ Demo Video: **https://drive.google.com/drive/folders/1WcgzrLGywzkeVgJ8YXiANd5Xax
 
 | Feature | Description | AI Model |
 |---|---|---|
-| ❓ **Question Answering** | Get accurate answers to any educational question | Gemini 2.5 Flash |
-| 💡 **Concept Explanation** | Simplified explanations for students of all levels | LaMini-Flan-T5-783M |
-| 📝 **Text Summarization** | Condense long paragraphs into crisp summaries | Gemini 2.5 Flash |
-| 🎯 **Quiz Generation** | Auto-generate 3 MCQ questions with answer checking | Gemini 2.5 Flash |
-| 🗺️ **Learning Path** | Personalized study roadmaps (Beginner → Advanced) | Gemini 2.5 Flash |
+| ❓ **Question Answering** | Get accurate answers to any educational question | Gemini 1.5 Pro |
+| 💡 **Concept Explanation** | Simplified explanations for students of all levels | Gemini 1.5 Pro |
+| 📝 **Text Summarization** | Condense long paragraphs into crisp summaries | Gemini 1.5 Pro |
+| 🎯 **Quiz Generation** | Auto-generate 3 MCQ questions with answer checking | Gemini 1.5 Pro |
+| 🗺️ **Learning Path** | Personalized study roadmaps (Beginner → Advanced) | Gemini 1.5 Pro |
 
 ---
 
@@ -49,8 +45,7 @@ Demo Video: **https://drive.google.com/drive/folders/1WcgzrLGywzkeVgJ8YXiANd5Xax
 |---|---|
 | **Backend** | FastAPI + Uvicorn |
 | **Frontend** | HTML5 + CSS3 + Vanilla JavaScript (Jinja2 Templates) |
-| **AI Model 1** | Google Gemini 2.5 Flash (via `google-generativeai` SDK) |
-| **AI Model 2** | MBZUAI/LaMini-Flan-T5-783M (via HuggingFace `transformers`) |
+| **AI Model** | Google Gemini 1.5 Pro (via `google-generativeai` SDK) |
 | **Database** | File-based JSON storage |
 | **Environment** | Python 3.10+, `python-dotenv` |
 
@@ -64,11 +59,11 @@ edugenie/
 ├── main.py                  # FastAPI app — all routes & endpoints
 ├── config.py                # Centralized config (API key, app settings)
 │
-├── qna.py                   # Q&A module (Gemini 2.5 Flash)
-├── explanation_module.py    # Explanation module (LaMini-Flan-T5)
-├── summary_module.py        # Summarization module (Gemini 2.5 Flash)
-├── quiz_module.py           # Quiz generation module (Gemini 2.5 Flash)
-├── learning_path.py         # Learning path module (Gemini 2.5 Flash)
+├── qna.py                   # Q&A module (Gemini 1.5 Pro)
+├── explanation_module.py    # Explanation module (Gemini 1.5 Pro)
+├── summary_module.py        # Summarization module (Gemini 1.5 Pro)
+├── quiz_module.py           # Quiz generation module (Gemini 1.5 Pro)
+├── learning_path.py         # Learning path module (Gemini 1.5 Pro)
 │
 ├── templates/
 │   └── index.html           # Main frontend (Jinja2 template)
@@ -132,8 +127,6 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-> ⏳ **Note:** The first run will download the LaMini-Flan-T5-783M model (~1.5 GB) from HuggingFace. This is a one-time download; it gets cached locally automatically.
-
 ---
 
 ### Step 4 — Configure Your API Key
@@ -187,7 +180,7 @@ Navigate to: **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 All endpoints are also accessible via **Swagger UI** at: `http://127.0.0.1:8000/docs`
 
 ### GET `/qa`
-Answers an educational question using Gemini 2.5 Flash.
+Answers an educational question using Gemini 1.5 Pro.
 
 ```http
 GET /qa?question=Which is the largest ocean?
@@ -202,7 +195,7 @@ GET /qa?question=Which is the largest ocean?
 ---
 
 ### POST `/explain/`
-Explains a concept in simple language using LaMini-Flan-T5.
+Explains a concept in simple language using Gemini 1.5 Pro.
 
 ```http
 POST /explain/
@@ -223,7 +216,7 @@ Content-Type: application/json
 ---
 
 ### POST `/summarize/`
-Summarizes long text using Gemini 2.5 Flash.
+Summarizes long text using Gemini 1.5 Pro.
 
 ```http
 POST /summarize/
@@ -243,7 +236,7 @@ Content-Type: application/json
 ---
 
 ### POST `/quiz`
-Generates 3 MCQ questions from a topic or passage using Gemini 2.5 Flash.
+Generates 3 MCQ questions from a topic or passage.
 
 ```http
 POST /quiz
@@ -269,7 +262,7 @@ Content-Type: application/json
 ---
 
 ### GET `/learn/recommendations`
-Generates a personalized learning path for a topic using Gemini 2.5 Flash.
+Generates a personalized learning path for a topic.
 
 ```http
 GET /learn/recommendations?topic=SQL
@@ -305,8 +298,8 @@ GET /learn/recommendations?topic=SQL
 └───────┼──────────┼───────────┼────────────┼──────────┘
         ▼          ▼           ▼            ▼
   ┌──────────┐ ┌────────┐ ┌────────┐ ┌──────────────┐
-  │ Gemini   │ │LaMini- │ │ Gemini │ │ Gemini       │
-  │ 2.5 Flash│ │Flan-T5 │ │2.5 Flash│ │ 2.5 Flash    │
+  │  Gemini  │ │ Gemini │ │Gemini  │ │  Gemini 1.5  │
+  │ 1.5 Pro  │ │1.5 Pro │ │1.5 Pro │ │     Pro      │
   │  (Q&A)   │ │(Explain│ │ (Quiz, │ │  (Learning   │
   │          │ │       )│ │Summarize│ │    Path)     │
   └──────────┘ └────────┘ └────────┘ └──────────────┘
@@ -346,37 +339,11 @@ http://127.0.0.1:8000/redoc
 2. Go to [render.com](https://render.com) → **New** → **Web Service**
 3. Connect your GitHub repository
 4. Configure:
-   - **Python Version:** `3.13.x` (recommended)
-   - **Build Command:** `python -m pip install -r requirements.txt`
+   - **Build Command:** `pip install -r requirements.txt`
    - **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
 5. Add **Environment Variable:** `GEMINI_API_KEY = your_key_here`
+6. Set **Python Version** to `3.12.10` to use prebuilt wheels for the project's dependencies.
 6. Click **Deploy** ✅
-
-### Optional: Automatic Deploys from GitHub → Render
-
-You can trigger Render deploys automatically from GitHub using a workflow that calls the Render API.
-
-1. In your GitHub repo, go to **Settings** → **Secrets and variables** → **Actions** and add two secrets:
-  - `RENDER_API_KEY` — your Render account API key (create at https://dashboard.render.com/account/api-keys)
-  - `RENDER_SERVICE_ID` — the Render Web Service ID (from your service URL or dashboard)
-
-2. Push to `main` and the workflow `.github/workflows/deploy-to-render.yml` will call the Render API to start a deploy.
-
-3. Monitor deploys in the Render dashboard or check the Actions tab in GitHub for the workflow run.
-
-
-> If you must use Python `3.14`, use this build command instead:
->
-> ```bash
-> mkdir -p /tmp/cargo /tmp/rustup && \
-> export CARGO_HOME=/tmp/cargo && \
-> export RUSTUP_HOME=/tmp/rustup && \
-> curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
-> . /tmp/cargo/env && \
-> python -m pip install -r requirements.txt
-> ```
->
-> This ensures Rust and Cargo are installed into writable temporary directories so `tokenizers` can build if a wheel is not available.
 
 ### Option B — Deploy on Railway
 
@@ -447,11 +414,8 @@ pip install -r requirements.txt
 uvicorn main:app --reload --port 8001
 ```
 
-### ❌ Explanation module takes long to load
-→ Normal on first run! LaMini-Flan-T5 (~1.5 GB) is being downloaded and cached. Subsequent runs are instant.
-
-### ❌ `torch` installation fails on Windows
-→ Try installing PyTorch separately from [pytorch.org](https://pytorch.org/get-started/locally/)
+### ❌ Explanation requests fail
+→ Check the service logs and confirm `GEMINI_API_KEY` is configured in the environment.
 
 ---
 
@@ -488,16 +452,14 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 
 ## 🙏 Acknowledgements
 
-- [Google AI Studio](https://aistudio.google.com/) — Gemini 2.5 Flash API
-- [MBZUAI](https://huggingface.co/MBZUAI/LaMini-Flan-T5-783M) — LaMini-Flan-T5 model
+- [Google AI Studio](https://aistudio.google.com/) — Gemini 1.5 Pro API
 - [FastAPI](https://fastapi.tiangolo.com/) — High-performance Python web framework
-- [HuggingFace Transformers](https://huggingface.co/docs/transformers) — ML model library
 
 ---
 
 <div align="center">
 
-**Built with ❤️ using FastAPI + Google Gemini 2.5 Flash**
+**Built with ❤️ using FastAPI + Google Gemini 1.5 Pro**
 
 ⭐ Star this repository if you found it helpful!
 
